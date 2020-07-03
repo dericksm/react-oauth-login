@@ -1,0 +1,9 @@
+{
+    "beautify.ignore": [
+        "**/*.js",
+        "**/*.jsx"
+    ],
+    "files.associations": {
+        "*.js": "javascriptreact"
+    }
+}
