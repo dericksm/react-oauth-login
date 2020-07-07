@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import FacebookLogin from 'react-facebook-login'
 import GoogleLogin from 'react-google-login'
 
 import CustomInput from './CustomInput'
@@ -13,6 +12,7 @@ class Signup extends Component {
   constructor(props) {
     super(props)
     this.onSubmit = this.onSubmit.bind(this)
+    this.responseGoogle = this.responseGoogle.bind(this)
   }
 
   async onSubmit(formData) {
@@ -20,7 +20,9 @@ class Signup extends Component {
     await this.props.signUp(formData)
   }
 
-  responseGoogle(res) {}
+  async responseGoogle(res) {
+    await this.props.googleOauth(res.accessToken)
+  }
 
   responseFacebook(res) {}
 
@@ -72,14 +74,6 @@ class Signup extends Component {
         <div className="col">
           <div className="text-center">
             <div className="alert alert-primary">Or sign up using third party services</div>
-            <FacebookLogin
-              appId="1000524060366432"
-              autoLoad="true"
-              textButton="Facebook"
-              fields="name, email"
-              callback={this.responseFacebook}
-              cssClass="btn btn-outline-primary"
-            />
             <GoogleLogin
               clientId="242425157468-0as7hk6b6kec363v0u4543c5jk6iqobs.apps.googleusercontent.com"
               button="Google"
@@ -87,6 +81,14 @@ class Signup extends Component {
               onFailure={this.responseGoogle}
               className="btn btn-outline-dangera"
             />
+            {/* <FacebookLogin
+              appId="1000524060366432"
+              autoLoad="true"
+              textButton="Facebook"
+              fields="name, email"
+              callback={this.responseFacebook}
+              cssClass="btn btn-outline-primary"
+            /> */}
           </div>
         </div>
       </div>
